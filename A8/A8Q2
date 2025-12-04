@@ -1,0 +1,87 @@
+Node* bstInsert(Node* root, int key) {
+    if (root == NULL) return new Node(key);
+
+    if (key < root->data)
+        root->left = bstInsert(root->left, key);
+    else if (key > root->data)
+        root->right = bstInsert(root->right, key);
+
+    return root;
+}
+
+// (a) Search recursive
+Node* searchRec(Node* root, int key) {
+    if (root == NULL || root->data == key) return root;
+
+    if (key < root->data)
+        return searchRec(root->left, key);
+    else
+        return searchRec(root->right, key);
+}
+
+// (a) Search non-recursive
+Node* searchIter(Node* root, int key) {
+    while (root != NULL) {
+        if (root->data == key) return root;
+        else if (key < root->data) root = root->left;
+        else root = root->right;
+    }
+    return NULL;
+}
+
+// (b) Maximum
+Node* bstMax(Node* root) {
+    if (root == NULL) return NULL;
+    while (root->right != NULL) root = root->right;
+    return root;
+}
+
+// (c) Minimum
+Node* bstMin(Node* root) {
+    if (root == NULL) return NULL;
+    while (root->left != NULL) root = root->left;
+    return root;
+}
+
+// (d) Inorder Successor
+Node* inorderSuccessor(Node* root, int key) {
+    Node* target = searchIter(root, key);
+    if (target == NULL) return NULL;
+
+    if (target->right != NULL)
+        return bstMin(target->right);
+
+    Node* succ = NULL;
+    Node* cur = root;
+    while (cur != NULL) {
+        if (key < cur->data) {
+            succ = cur;
+            cur = cur->left;
+        } else if (key > cur->data) {
+            cur = cur->right;
+        } else break;
+    }
+    return succ;
+}
+
+// (e) Inorder Predecessor
+Node* inorderPredecessor(Node* root, int key) {
+    Node* target = searchIter(root, key);
+    if (target == NULL) return NULL;
+
+    if (target->left != NULL)
+        return bstMax(target->left);
+
+    Node* pred = NULL;
+    Node* cur = root;
+    while (cur != NULL) {
+        if (key > cur->data) {
+            pred = cur;
+            cur = cur->right;
+        } else if (key < cur->data) {
+            cur = cur->left;
+        } else break;
+    }
+    return pred;
+}
+

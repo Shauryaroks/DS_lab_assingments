@@ -1,0 +1,57 @@
+Node* bstDelete(Node* root, int key) {
+    if (root == NULL) return NULL;
+
+    if (key < root->data)
+        root->left = bstDelete(root->left, key);
+    else if (key > root->data)
+        root->right = bstDelete(root->right, key);
+
+    else {
+        // Case 1: Leaf
+        if (root->left == NULL && root->right == NULL) {
+            delete root;
+            return NULL;
+        }
+        // Case 2: One child
+        else if (root->left == NULL) {
+            Node* t = root->right;
+            delete root;
+            return t;
+        }
+        else if (root->right == NULL) {
+            Node* t = root->left;
+            delete root;
+            return t;
+        }
+        // Case 3: Two children
+        else {
+            Node* succ = bstMin(root->right);
+            root->data = succ->data;
+            root->right = bstDelete(root->right, succ->data);
+        }
+    }
+    return root;
+}
+
+// Maximum depth (height)
+int maxDepth(Node* root) {
+    if (root == NULL) return 0;
+
+    int left = maxDepth(root->left);
+    int right = maxDepth(root->right);
+
+    return 1 + (left > right ? left : right);
+}
+
+// Minimum depth
+int minDepth(Node* root) {
+    if (root == NULL) return 0;
+
+    int left = minDepth(root->left);
+    int right = minDepth(root->right);
+
+    if (root->left == NULL) return 1 + right;
+    if (root->right == NULL) return 1 + left;
+
+    return 1 + (left < right ? left : right);
+}
