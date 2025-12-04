@@ -1,0 +1,11 @@
+#include <iostream>
+using namespace std;
+const int N=100;
+int cq[N], front_=-1, rear_=-1;
+bool cisempty(){ return front_==-1; }
+bool cisfull(){ return (rear_+1)%N==front_; }
+void cenqueue(int x){ if(cisfull()) cout<<"FULL\n"; else{ if(front_==-1) front_=0; rear_=(rear_+1)%N; cq[rear_]=x; } }
+int cdequeue(){ if(cisempty()) return -1; int t=cq[front_]; if(front_==rear_) front_=rear_=-1; else front_=(front_+1)%N; return t; }
+int cpeek(){ if(cisempty()) return -1; return cq[front_]; }
+void cdisplay(){ if(cisempty()){ cout<<"EMPTY\n"; return; } int i=front_; while(true){ cout<<cq[i]<<" "; if(i==rear_) break; i=(i+1)%N; } cout<<"\n"; }
+int main(){ int ch,x; while(cin>>ch){ if(ch==1){ cin>>x; cenqueue(x); } else if(ch==2) cout<<cdequeue()<<"\n"; else if(ch==3) cout<<cisempty()<<"\n"; else if(ch==4) cout<<cisfull()<<"\n"; else if(ch==5) cdisplay(); else if(ch==6) cout<<cpeek()<<"\n"; else break; } return 0; }
