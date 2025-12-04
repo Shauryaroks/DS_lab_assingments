@@ -1,0 +1,32 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <cctype>
+using namespace std;
+int main(){
+    string a,b;
+    if(!getline(cin,a)) return 0;
+    if(!getline(cin,b)) return 0;
+    cout<<a+b<<"\n";
+    string s;
+    if(!getline(cin,s)) return 0;
+    reverse(s.begin(), s.end());
+    cout<<s<<"\n";
+    if(!getline(cin,s)) return 0;
+    string r;
+    for(char c:s){ char l=tolower(static_cast<unsigned char>(c)); if(string("aeiou").find(l)==string::npos) r.push_back(c); }
+    cout<<r<<"\n";
+    int n; if(!(cin>>n)) return 0;
+    vector<string> arr(n);
+    for(int i=0;i<n;i++) cin>>arr[i];
+    sort(arr.begin(), arr.end());
+    for(auto &x:arr) cout<<x<<"\n";
+    char c; cin>>c; if(isupper(static_cast<unsigned char>(c))) c = tolower(static_cast<unsigned char>(c)); cout<<c<<"\n";
+    return 0;
+}
+
+
+
+
+
