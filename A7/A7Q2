@@ -1,0 +1,23 @@
+void improvedSelectionSort(int arr[], int n) {
+    for (int i = 0, j = n - 1; i < j; i++, j--) {
+        int minIdx = i, maxIdx = i;
+        for (int k = i; k <= j; k++) {
+            if (arr[k] < arr[minIdx]) minIdx = k;
+            if (arr[k] > arr[maxIdx]) maxIdx = k;
+        }
+
+        // swap minimum with first element
+        int temp = arr[i];
+        arr[i] = arr[minIdx];
+        arr[minIdx] = temp;
+
+        // If max element was swapped, update its index
+        if (maxIdx == i)
+            maxIdx = minIdx;
+
+        // swap maximum with last element
+        temp = arr[j];
+        arr[j] = arr[maxIdx];
+        arr[maxIdx] = temp;
+    }
+}
