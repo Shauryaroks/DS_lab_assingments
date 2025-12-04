@@ -1,0 +1,12 @@
+#include <iostream>
+using namespace std;
+const int N=100;
+int st[N], top=-1;
+void push_(int x){ if(top<N-1) st[++top]=x; else cout<<"FULL\n"; }
+int pop_(){ if(top==-1) return -1; return st[top--]; }
+int isEmpty(){ return top==-1; }
+int isFull(){ return top==N-1; }
+int peek(){ if(top==-1) return -1; return st[top]; }
+void display(){ if(top==-1){ cout<<"EMPTY\n"; return; } for(int i=top;i>=0;i--) cout<<st[i]<<" "; cout<<"\n"; }
+int main(){ int ch,x; while(cin>>ch){ if(ch==1){ cin>>x; push_(x); } else if(ch==2) cout<<pop_()<<"\n"; else if(ch==3) cout<<isEmpty()<<"\n"; else if(ch==4) cout<<isFull()<<"\n"; else if(ch==5) display(); else if(ch==6) cout<<peek()<<"\n"; else break; } return 0; }
+
